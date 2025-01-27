@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forty.ceap.mapper.SystemRolePermissionMapper">
+
+    <resultMap id="SystemPermissionList" type="com.forty.ceap.model.system.SystemPermission">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="BIGINT"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getPermissionsByRoleIds" resultMap="SystemPermissionList">
+        select
+            cp_system_permission.id as `id`,
+            cp_system_permission.pid as `pid`,
+            cp_system_permission.`name` as `name`,
+            cp_system_permission.`code` as `code`
+        from cp_system_role_permisson
+                 LEFT JOIN cp_system_permission ON cp_system_role_permisson.pid = cp_system_permission.id
+                 LEFT JOIN cp_system_role ON cp_system_role.id = cp_system_role_permisson.rid
+        WHERE cp_system_role.id in
+        <foreach item="id" collection="roleIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND cp_system_role.is_delete = 0
+          AND cp_system_role_permisson.is_delete=0
+          AND cp_system_permission.is_delete=0
+        GROUP BY cp_system_permission.`code`
+        ORDER BY cp_system_permission.id;
+
+    </select>
+</mapper>
