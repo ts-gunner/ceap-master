@@ -9,6 +9,7 @@ import defaultSettings from '../config/defaultSettings';
 import { requestConfig } from './requestConfig';
 import { getAdminInfo } from './services/ceap/adminLoginController';
 import { commonConstants } from './constants/common';
+import { message } from 'antd';
 
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -25,6 +26,10 @@ export async function getInitialState(): Promise<InitialState> {
   };
   try {
     const response = await getAdminInfo();
+    if (response.code !== 200){
+      message.error(response.msg)
+      return state;
+    }
     state.loginUser = response.data
   }catch (err){
     history.push(loginPath)

@@ -11,9 +11,9 @@ public class GlobalConfig {
      * 注册全局异常处理器
      * @return
      */
-//    @Bean
-//    public WebAppExceptionHandler webAppExceptionHandler() {
-//        return new WebAppExceptionHandler();
-//    }
+    @Bean
+    public WebAppExceptionHandler webAppExceptionHandler() {
+        return new WebAppExceptionHandler();
+    }
 
 }

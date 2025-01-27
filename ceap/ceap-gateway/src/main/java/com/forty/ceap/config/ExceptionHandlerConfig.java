@@ -1,7 +1,6 @@
 package com.forty.ceap.config;
 
 import com.forty.ceap.handler.GatewayExceptionHandler;
-import com.forty.ceap.handler.WebAppExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;

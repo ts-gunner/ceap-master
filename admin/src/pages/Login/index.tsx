@@ -2,6 +2,7 @@ import { Footer } from '@/components';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import {
   AlipayCircleOutlined,
+  WechatOutlined,
   LockOutlined,
   MobileOutlined,
   TaobaoCircleOutlined,
@@ -51,7 +52,7 @@ const useStyles = createStyles(({ token }) => {
       height: '100vh',
       overflow: 'auto',
       backgroundImage:
-        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
+        "url('/background.jpg')",
       backgroundSize: '100% 100%',
     },
   };
@@ -60,9 +61,8 @@ const ActionIcons = () => {
   const { styles } = useStyles();
   return (
     <>
+      <WechatOutlined key="WechatCircleOutlined" className={styles.action} />
       <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.action} />
-      <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.action} />
-      <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.action} />
     </>
   );
 };
@@ -90,7 +90,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.AdminLoginRequest) => {
     try {
       const response = await adminLogin(values);
-      if (response.code === 200){
+      if (response.code === 200) {
         sessionStorage.setItem("token", response.data || "");
         message.success("登录成功!")
         let adminResp = await getAdminInfo();
@@ -106,10 +106,10 @@ const Login: React.FC = () => {
       } else {
         message.error(response.msg)
       }
-    }catch (error) {
+    } catch (error) {
       message.error('登录失败:' + error);
     }
-    
+
   };
   const { status, type: loginType } = userLoginState;
   return (
@@ -130,9 +130,9 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
-          subTitle={'Ant Design 是西湖区最具影响力的 Web 设计规范'}
+          logo={<img alt="logo" src="/icon.png" />}
+          title="CEAP数据中台"
+          subTitle="帮助用户搭建简易清新的管理平台"
           initialValues={{
             autoLogin: true,
           }}

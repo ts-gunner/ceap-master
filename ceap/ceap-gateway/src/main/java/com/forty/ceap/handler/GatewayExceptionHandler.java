@@ -47,7 +47,7 @@ public class GatewayExceptionHandler extends DefaultErrorWebExceptionHandler {
         }else {
             response = new BaseResponse<>(
                     ErrorCode.SYSTEM_ERROR.getCode(),
-                    MessageFormat.format("【system error】: {0}", error.getMessage())
+                    MessageFormat.format("system error: {0}", "服务异常")
             );
         }
         return BeanUtil.beanToMap(response);

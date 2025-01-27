@@ -52,12 +52,11 @@ public class SecurityConfig {
 
     /**
      * 权限校验失败处理权限不足的情况，适用于已认证但权限不够的用户.
-     * 由于全局拦截器已拦截权限不足的异常，该Bean可以不注入。
      */
-//    @Bean
-//    public AuthorizationAccessDeniedHandler accessDeniedHandler() {
-//        return new AuthorizationAccessDeniedHandler();
-//    }
+    @Bean
+    public AuthorizationAccessDeniedHandler accessDeniedHandler() {
+        return new AuthorizationAccessDeniedHandler();
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder) {
@@ -102,8 +101,7 @@ public class SecurityConfig {
                     );
         http.exceptionHandling(exception -> exception
                         .authenticationEntryPoint(unauthorizedEntryPoint())
-                        // 由于全局拦截器已拦截权限不足的异常，该Bean可以不注入。
-                        // .accessDeniedHandler(accessDeniedHandler())
+                         .accessDeniedHandler(accessDeniedHandler())
                     );
         http.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
