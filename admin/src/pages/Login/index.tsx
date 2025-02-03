@@ -130,8 +130,8 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/icon.png" />}
-          title="CEAP数据中台"
+          logo={<img alt="logo" src="/login_logo.png" />}
+          title="数据中台"
           subTitle="帮助用户搭建简易清新的管理平台"
           initialValues={{
             autoLogin: true,

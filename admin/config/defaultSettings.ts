@@ -1,5 +1,4 @@
 import { ProLayoutProps } from '@ant-design/pro-components';
-
 /**
  * @name
  */
@@ -15,9 +14,9 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'CEAP管理平台',
+  title: '管理平台',
   pwa: true,
-  logo: '',
+  logo: "https://pic1.imgdb.cn/item/67a0c87ad0e0a243d4f9bf3f.png",
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式

@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
 
         {
           key: 'ceap-admin',
-          title: 'Ceap Controller',
+          title: 'CEAP Controller',
           href: '#',
           blankTarget: true,
         },
