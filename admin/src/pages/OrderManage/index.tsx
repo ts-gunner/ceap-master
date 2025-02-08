@@ -118,9 +118,7 @@ export default function OrderManage() {
               currentPage: params.current,
               pageSize: params.pageSize,
             })
-            if (response.code !== 200) {
-              message.error(response.msg)
-            }
+          
             return {
               data: response.data?.records,
               // success 请返回 true，

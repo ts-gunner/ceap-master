@@ -103,6 +103,10 @@ INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (13, 9, '
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (14, null, '权限服务', 'admin:perm_service');
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (15, 14, '查看权限相关内容', 'admin:perms:search');
 
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (16, null, '订单服务', 'admin:order_service');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (17, 16, '获取订单信息', 'admin:order:get');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (18, 16, '更新订单内容', 'admin:order:update');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (19, 16, '添加订单信息', 'admin:order:add');
 
 -- --------------------------------
 -- 后台管理平台的角色权限映射表
@@ -130,6 +134,10 @@ INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 12);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 13);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 14);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 15);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 16);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 17);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 18);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 19);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (2, 2);
 
 

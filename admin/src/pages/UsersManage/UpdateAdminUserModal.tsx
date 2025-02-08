@@ -113,9 +113,7 @@ export default function UpdateAdminUserModal({ modalOpen, handleModalOpen, onSub
                                         })
                                     })
                                 }
-                                else {
-                                    message.error("无法获取角色列表：" + response.msg)
-                                }
+                               
                                 return options
                             }}
 

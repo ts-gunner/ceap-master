@@ -77,9 +77,7 @@ export default function AddAdminUserModal({ modalOpen, handleModalOpen, onSubmit
                                         })
                                     })
                                 }
-                                else {
-                                    message.error("无法获取角色列表：" + response.msg)
-                                }
+                              
                                 return options
                             }}
 

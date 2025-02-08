@@ -26,10 +26,6 @@ export async function getInitialState(): Promise<InitialState> {
   };
   try {
     const response = await getAdminInfo();
-    if (response.code !== 200){
-      message.error(response.msg)
-      return state;
-    }
     state.loginUser = response.data
   }catch (err){
     history.push(loginPath)

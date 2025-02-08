@@ -95,22 +95,18 @@ const Login: React.FC = () => {
         username: values.username,
         password: encryptByMd5(values.password)
       });
-      if (response.code === 200) {
-        sessionStorage.setItem("token", response.data || "");
-        message.success("登录成功!")
-        let adminResp = await getAdminInfo();
-        await setInitialState((initState?: InitialState) => {
-          return {
-            ...initState,
-            loginUser: adminResp.data
-          }
-        })
-        await refresh()
-        history.push("/")
-        return
-      } else {
-        message.error(response.msg)
-      }
+      sessionStorage.setItem("token", response.data || "");
+      message.success("登录成功!")
+      let adminResp = await getAdminInfo();
+      await setInitialState((initState?: InitialState) => {
+        return {
+          ...initState,
+          loginUser: adminResp.data
+        }
+      })
+      await refresh()
+      history.push("/")
+      return
     } catch (error) {
       message.error('登录失败:' + error);
     }

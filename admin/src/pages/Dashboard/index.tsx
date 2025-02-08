@@ -3,6 +3,7 @@ import { PageContainer } from '@ant-design/pro-components'
 import { commonConstants } from '@/constants/common'
 import { Typography, Statistic, Divider } from "antd";
 import DemoCharts from '@/components/charts/DemoCharts';
+import Demo2Charts from '@/components/charts/Demo2Charts';
 import MyCharts from '@/components/charts/MyCharts';
 import "./index.less"
 import { useModel } from '@umijs/max';
@@ -77,16 +78,19 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-
+        
+      <div className="dashboard-common-box">
+      <MyCharts />
+      </div>
       <div style={{
         display: "flex",
         gap: "1rem"
       }}>
         <div className="dashboard-common-box" style={{ flex: 6 }}>
-          <DemoCharts />
+        <DemoCharts />
         </div>
         <div className="dashboard-common-box" style={{ flex: 4 }}>
-          <MyCharts />
+          <Demo2Charts />
         </div>
       </div>
 
@@ -105,7 +109,7 @@ export default function Dashboard() {
           <div style={{ height: "300px" }}></div>
         </div>
         <div className="dashboard-common-box" style={{ flex: 4 }}>
-
+        
         </div>
       </div>
     </PageContainer>

@@ -107,10 +107,15 @@ export const requestConfig: RequestConfig = {
         code:number,
         msg: string
       };
-      if (code === 401001){
+      if (code === 200){
+        // message.success(msg)
+      }
+      else if (code === 401001 || code === 401){
         message.error(msg)
         sessionStorage.removeItem("token")
         history.push("/user/login")
+      }else {
+        message.error(msg)
       }
       return response;
     },

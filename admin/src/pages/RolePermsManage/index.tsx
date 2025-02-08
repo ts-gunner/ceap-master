@@ -131,9 +131,7 @@ export default function RolePermsManage() {
                             status: params.status
 
                         })
-                        if (response.code !== 200) {
-                            message.error(response.msg)
-                        }
+                    
                         return {
                             data: response.data?.records,
                             // success 请返回 true，
@@ -155,9 +153,7 @@ export default function RolePermsManage() {
                     })
                     if (resp.code === 200) {
                         message.success("添加成功！！")
-                    } else {
-                        message.error(resp.msg)
-                    }
+                    } 
                     actionRef.current?.reload()
                     handleAddRoleModalOpen(false)
                 }}
@@ -174,9 +170,7 @@ export default function RolePermsManage() {
                     })
                     if (resp.code === 200) {
                         message.success("添加成功！！")
-                    } else {
-                        message.error(resp.msg)
-                    }
+                    } 
                     actionRef.current?.reload()
                     handleUpdateRoleModalOpen(false)
                 }}

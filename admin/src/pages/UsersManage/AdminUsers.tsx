@@ -177,9 +177,7 @@ export default function AdminUsers() {
               account: params.account,
               status: params.status,
             })
-            if (response.code !== 200) {
-              message.error(response.msg)
-            }
+
             return {
               data: response.data?.records,
               // success 请返回 true，
@@ -204,8 +202,6 @@ export default function AdminUsers() {
           })
           if (resp.code === 200) {
             message.success("添加成功！")
-          } else {
-            message.error(resp.msg)
           }
           handleAddUserModalOpen(false)
           actionRef.current?.reload()
@@ -227,12 +223,8 @@ export default function AdminUsers() {
             password: encryptByMd5(values.password),
             rePassword: encryptByMd5(values.rePassword)
           })
-          if (resp.code === 200) {
-            message.success("修改成功！！")
-            handleResetPwdModalOpen(false)
-          } else {
-            message.error(resp.msg)
-          }
+          message.success("修改成功！！")
+          handleResetPwdModalOpen(false)
         }}
 
       />
@@ -255,9 +247,7 @@ export default function AdminUsers() {
             message.success("修改成功！！")
             actionRef.current?.reload()
             handleUpdateUserModalOpen(false)
-          } else {
-            message.error(resp.msg)
-          }
+          } 
 
 
         }}

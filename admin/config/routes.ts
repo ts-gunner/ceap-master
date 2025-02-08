@@ -12,6 +12,16 @@ export default [
     component: './Dashboard',
   },
   {
+    path: '/product',
+    name: '商品',
+    icon: "ProductOutlined",
+    routes: [
+      { path: "/product/manage", name: "商品管理", component: "./ProductManage" },
+      { path: "/product/category", name: "商品分类", component: "./ProductManage" },
+      { path: "/product/mark", name: "商品评论", component: "./ProductManage" },
+    ]
+  },
+  {
     path: '/orderManage',
     name: '订单管理',
     icon: "ProductOutlined",
@@ -28,16 +38,7 @@ export default [
       { path: "/users/groupManage", name: "用户分组", component: "./UsersGroupManage" },
     ]
   },
-  // {
-  //   path: '/admin',
-  //   name: '管理页',
-  //   icon: 'crown',
-  //   access: 'canAdmin',
-  //   routes: [
-  //     { path: '/admin', redirect: '/admin/sub-page' },
-  //     { path: '/admin/sub-page', name: '二级管理页', component: './Admin' },
-  //   ],
-  // },
+
   {
     name: '设置',
     icon: 'setting',

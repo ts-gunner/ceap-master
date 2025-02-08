@@ -26,7 +26,7 @@ public class StoreOrderController {
     @Autowired
     private StoreOrderService storeOrderService;
 
-    @PreAuthorize("hasAuthority('admin:orders:get')")
+    @PreAuthorize("hasAuthority('admin:order:get')")
     @PostMapping("/get_orders")
     @Operation(description = "管理员获取订单信息")
     public BaseResponse<Page<StoreOrder>> getAdminOrders(@RequestBody GetStoreOrderRequest request) {

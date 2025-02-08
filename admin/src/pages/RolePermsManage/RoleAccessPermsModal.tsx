@@ -46,9 +46,7 @@ export default function RoleAccessPermsModal({ modalOpen, handleModalOpen, value
 
             const checkedKeys: any = ps.map(item => item.id)
             setCheckedKeys(checkedKeys)
-        } else {
-            message.error(resp.msg)
-        }
+        } 
     }
     const onExpand: TreeProps['onExpand'] = (expandedKeysValue) => {
         setExpandedKeys(expandedKeysValue);
@@ -72,8 +70,6 @@ export default function RoleAccessPermsModal({ modalOpen, handleModalOpen, value
         })
         if (resp.code === 200) {
             message.success("添加成功！！")
-        } else {
-            message.error(resp.msg)
         }
         // handleModalOpen(false)
         getPerms()
