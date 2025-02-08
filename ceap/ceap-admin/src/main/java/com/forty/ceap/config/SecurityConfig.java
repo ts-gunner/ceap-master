@@ -1,6 +1,7 @@
 package com.forty.ceap.config;
 
 
+import cn.hutool.crypto.digest.DigestUtil;
 import com.forty.ceap.security.AuthenticationEntryPointImpl;
 import com.forty.ceap.security.AuthorizationAccessDeniedHandler;
 import com.forty.ceap.security.JwtAuthenticationTokenFilter;
@@ -14,7 +15,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -112,4 +112,10 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    public static void main(String[] args) {
+        String s1 = DigestUtil.md5Hex("123456");
+        System.out.println(s1);
+        String encode = new BCryptPasswordEncoder().encode(s1);
+        System.out.println(encode);
+    }
 }

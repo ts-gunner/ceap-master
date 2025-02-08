@@ -6,10 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import java.io.Serializable;
+
 
 @Data
 @ApiModel(value = "管理平台登录请求")
-public class AdminLoginRequest {
+public class AdminLoginRequest implements Serializable {
 
 
     @NotBlank(message = "账号不能为空")
@@ -18,7 +20,6 @@ public class AdminLoginRequest {
     private String username;
 
     @NotBlank(message = "密码不能为空")
-    @Length(min=6, max= 20,message = "密码必须在6-20位")
     @ApiModelProperty("管理员密码")
     private String password;
 

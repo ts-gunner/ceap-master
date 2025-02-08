@@ -3,6 +3,7 @@ package com.forty.ceap.vo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.forty.ceap.model.system.SystemAdmin;
 import com.forty.ceap.model.system.SystemPermission;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@ApiModel(description = "管理端用户登录模型，仅用户spring security规定的模型")
 public class LoginAdminVo implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;

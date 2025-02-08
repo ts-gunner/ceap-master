@@ -44,7 +44,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         try {
             authenticate = authenticationManager.authenticate(authenticationToken);
         }catch (Exception e) {
-            throw new BusinessException(ErrorCode.AUTH_FAIL, "用户或密码错误");
+            throw new BusinessException(ErrorCode.AUTH_FAIL, e.getMessage());
         }
 
         LoginAdminVo userDetails = (LoginAdminVo) authenticate.getPrincipal();

@@ -5,7 +5,9 @@ import { Typography, Statistic, Divider } from "antd";
 import DemoCharts from '@/components/charts/DemoCharts';
 import MyCharts from '@/components/charts/MyCharts';
 import "./index.less"
+import { useModel } from '@umijs/max';
 export default function Dashboard() {
+  const { initialState } = useModel('@@initialState');
   return (
     <PageContainer
       header={{
@@ -27,7 +29,7 @@ export default function Dashboard() {
             flexDirection: "column",
             gap: "0.25rem"
           }}>
-            <Typography.Text strong>早安，yangjj，今天又是心情愉悦的一天！</Typography.Text>
+            <Typography.Text strong>早安，{initialState?.loginUser?.realName}，今天又是心情愉悦的一天！</Typography.Text>
             <Typography.Text type='secondary'>今日您有三个待办，请查看</Typography.Text>
           </div>
         </div>

@@ -23,9 +23,9 @@ export default [
     icon: "user",
     routes: [
       { path: "/users/manage", name: "用户管理", component: "./UsersManage" },
-      { path: "/users/tagManage", name: "用户标签", component: "./UsersManage" },
-      { path: "/users/levelManage", name: "用户等级", component: "./UsersManage" },
-      { path: "/users/groupManage", name: "用户分组", component: "./UsersManage" },
+      { path: "/users/tagManage", name: "用户标签", component: "./UsersTagManage" },
+      { path: "/users/levelManage", name: "用户等级", component: "./UsersLevelManage" },
+      { path: "/users/groupManage", name: "用户分组", component: "./UsersGroupManage" },
     ]
   },
   // {
@@ -44,7 +44,13 @@ export default [
     path: '/setting',
     routes: [
       { path: "/setting/system", name: '系统设置', component: "./SystemSetting" },
-      { path: "/setting/permission", name: '权限管理', component: "./PermissionManage" },
+      {
+        path: "/setting/permission", name: '权限管理', routes: [
+          { path: "/setting/permission/role_perms", name: '角色权限', component: "./RolePermsManage" },
+          { path: "/setting/permission/rules", name: '权限规则', component: "./PermissionRuleManage" },
+        ]
+      },
+
     ]
   },
   { path: '/', redirect: '/dashboard' },

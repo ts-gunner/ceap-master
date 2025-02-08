@@ -18,12 +18,8 @@ public class SystemRolePermission implements Serializable {
     private Integer rid;
 
     @ApiModelProperty("权限id")
-    private String pid;
+    private Integer pid;
 
-    @TableLogic
-    @TableField("is_delete")
-    @ApiModelProperty(value = "是否删除 1是0否")
-    private Boolean isDelete;
 
     @Serial
     @TableField(exist = false)

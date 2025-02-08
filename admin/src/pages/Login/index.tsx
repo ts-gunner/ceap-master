@@ -1,5 +1,6 @@
 import { Footer } from '@/components';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import { encryptByMd5 } from '@/utils/encryptUtils';
 import {
   AlipayCircleOutlined,
   WechatOutlined,
@@ -20,6 +21,7 @@ import { Alert, message, Tabs } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
+import { commonConstants } from '@/constants/common';
 import Settings from '../../../config/defaultSettings';
 import { adminLogin, getAdminInfo } from '@/services/ceap/adminLoginController';
 const useStyles = createStyles(({ token }) => {
@@ -89,7 +91,10 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (values: API.AdminLoginRequest) => {
     try {
-      const response = await adminLogin(values);
+      const response = await adminLogin({
+        username: values.username,
+        password: encryptByMd5(values.password)
+      });
       if (response.code === 200) {
         sessionStorage.setItem("token", response.data || "");
         message.success("登录成功!")
@@ -130,7 +135,7 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/login_logo.png" />}
+          logo={<img alt="logo" src={commonConstants.LOGIN_LOGO} />}
           title="数据中台"
           subTitle="帮助用户搭建简易清新的管理平台"
           initialValues={{

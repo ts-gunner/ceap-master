@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequestMapping("auth")
+@Tag(name="AdminLoginController", description = "管理端用户登录服务")
 @RestController
 public class AdminLoginController {
 

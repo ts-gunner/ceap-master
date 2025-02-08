@@ -64,6 +64,9 @@ public class SystemAdmin implements Serializable {
     @ApiModelProperty(value = "手机号码")
     private String phone;
 
+    @ApiModelProperty(value = "邮箱")
+    private String email;
+
     @TableField("is_sms")
     @ApiModelProperty(value = "是否接收短信")
     private Boolean isSms;

@@ -3,7 +3,7 @@ import { PageContainer } from '@ant-design/pro-components'
 export default function SystemSetting() {
   return (
     <PageContainer
-    header={{
+      header={{
         title: '',
         breadcrumb: {},
       }}

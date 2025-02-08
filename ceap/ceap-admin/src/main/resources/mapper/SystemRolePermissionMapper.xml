@@ -16,16 +16,15 @@
             cp_system_permission.pid as `pid`,
             cp_system_permission.`name` as `name`,
             cp_system_permission.`code` as `code`
-        from cp_system_role_permisson
-                 LEFT JOIN cp_system_permission ON cp_system_role_permisson.pid = cp_system_permission.id
-                 LEFT JOIN cp_system_role ON cp_system_role.id = cp_system_role_permisson.rid
+        from cp_system_role_permission
+                 LEFT JOIN cp_system_permission ON cp_system_role_permission.pid = cp_system_permission.id
+                 LEFT JOIN cp_system_role ON cp_system_role.id = cp_system_role_permission.rid
         WHERE cp_system_role.id in
         <foreach item="id" collection="roleIds" open="(" separator="," close=")">
             #{id}
         </foreach>
         AND cp_system_role.is_delete = 0
-          AND cp_system_role_permisson.is_delete=0
-          AND cp_system_permission.is_delete=0
+        AND cp_system_permission.is_delete=0
         GROUP BY cp_system_permission.`code`
         ORDER BY cp_system_permission.id;
 
