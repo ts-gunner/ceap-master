@@ -43,7 +43,7 @@ VALUES
     (
         1,
         'admin',
-        '$2a$10$RCqmR46Q2.w5ebxSXlyKOubSUIvyOZFaiof0.0TRBrD5gDFs58RZO',
+        '$2a$10$oCaSGSQA9F9TzsqSSQTJiu038QM6ikeBeJ4JGV8kgOsEXVWRicdNS',
         '超级管理员',
         '1',
         '127.0.0.1'
@@ -108,6 +108,10 @@ INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (17, 16, 
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (18, 16, '更新订单内容', 'admin:order:update');
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (19, 16, '添加订单信息', 'admin:order:add');
 
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (20, null, '商品服务', 'admin:product_service');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (21, 20, '获取商品信息', 'admin:product:get');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (22, 20, '更新商品内容', 'admin:product:update');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (23, 20, '添加商品信息', 'admin:product:add');
 -- --------------------------------
 -- 后台管理平台的角色权限映射表
 -- --------------------------------
@@ -138,6 +142,10 @@ INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 16);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 17);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 18);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 19);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 20);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 21);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 22);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 23);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (2, 2);
 
 
@@ -256,6 +264,7 @@ CREATE TABLE `cp_store_product`  (
   `sales` mediumint(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '销量',
   `stock` mediumint(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '库存',
   `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态（0：未上架，1：上架）',
+  `is_recycle` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否回收，（0: 未回收， 1： 已回收）',
   `is_hot` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否热卖',
   `is_benefit` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否优惠',
   `is_best` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否精品',
@@ -270,11 +279,36 @@ CREATE TABLE `cp_store_product`  (
   `flat_pattern` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '展示图',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `cate_id`(`cate_id`) USING BTREE,
-  INDEX `is_hot`(`is_hot`) USING BTREE,
-  INDEX `is_new`(`is_new`) USING BTREE,
   INDEX `price`(`price`) USING BTREE,
   INDEX `sort`(`sort`) USING BTREE,
   INDEX `sales`(`sales`) USING BTREE
 ) ENGINE = InnoDB COMMENT = '商品表';
+
+
+DROP TABLE IF EXISTS `cp_system_attachment`;
+CREATE TABLE `cp_system_attachment`  (
+  `id` VARCHAR(100) NOT NULL,
+  `att_name` varchar(100) NOT NULL DEFAULT '' COMMENT '附件名称',
+  `att_dir` varchar(1000) NOT NULL DEFAULT '' COMMENT '附件路径',
+  `satt_dir` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '压缩图片路径',
+  `att_size` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '附件大小',
+  `att_type` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '附件类型',
+  `category_id` int(10) NOT NULL DEFAULT 0 COMMENT '分类ID',
+  `create_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB  COMMENT = '附件管理表';
+
+
+DROP TABLE IF EXISTS `cp_system_category`;
+CREATE TABLE `cp_system_category`  (
+    `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `pid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '父级ID',
+    `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '分类名称',
+    `type` smallint(2) NULL DEFAULT 1 COMMENT '类型，1 产品分类，2 附件分类 3 设置分类',
+    `create_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB  COMMENT = '分类管理表';
 
 SET FOREIGN_KEY_CHECKS = 1;

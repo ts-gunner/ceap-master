@@ -39,6 +39,12 @@ declare namespace API {
     data?: PageStoreOrder;
   };
 
+  type BaseResponsePageStoreProduct = {
+    code?: number;
+    msg?: string;
+    data?: PageStoreProduct;
+  };
+
   type BaseResponsePageSystemAdminPageVo = {
     code?: number;
     msg?: string;
@@ -94,6 +100,14 @@ declare namespace API {
     sortOrder?: string;
   };
 
+  type GetStoreProductRequest = {
+    currentPage?: number;
+    pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+    productType?: number;
+  };
+
   type GetSystemAdminListRequest = {
     currentPage?: number;
     pageSize?: number;
@@ -125,6 +139,20 @@ declare namespace API {
     orders?: OrderItem[];
     optimizeCountSql?: PageStoreOrder;
     searchCount?: PageStoreOrder;
+    optimizeJoinOfCountSql?: boolean;
+    maxLimit?: number;
+    countId?: string;
+    pages?: number;
+  };
+
+  type PageStoreProduct = {
+    records?: StoreProduct[];
+    total?: number;
+    size?: number;
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: PageStoreProduct;
+    searchCount?: PageStoreProduct;
     optimizeJoinOfCountSql?: boolean;
     maxLimit?: number;
     countId?: string;
@@ -222,6 +250,38 @@ declare namespace API {
     updateTime?: string;
     shippingType?: number;
     orderType?: number;
+  };
+
+  type StoreProduct = {
+    id?: number;
+    merId?: number;
+    image?: string;
+    sliderImage?: string;
+    storeName?: string;
+    description?: string;
+    keyword?: string;
+    cateId?: string;
+    price?: number;
+    vipPrice?: number;
+    otPrice?: number;
+    postage?: number;
+    unitName?: string;
+    sort?: number;
+    sales?: number;
+    stock?: number;
+    isShow?: boolean;
+    isHot?: boolean;
+    isBenefit?: boolean;
+    isBest?: boolean;
+    isNew?: boolean;
+    createTime?: string;
+    updateTime?: string;
+    isPostage?: boolean;
+    isDelete?: boolean;
+    browse?: number;
+    tempId?: number;
+    specType?: boolean;
+    flatPattern?: string;
   };
 
   type SystemAdminPageVo = {

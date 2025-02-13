@@ -14,11 +14,11 @@ export default [
   {
     path: '/product',
     name: '商品',
-    icon: "ProductOutlined",
+    icon: "ShoppingOutlined",
     routes: [
       { path: "/product/manage", name: "商品管理", component: "./ProductManage" },
-      { path: "/product/category", name: "商品分类", component: "./ProductManage" },
-      { path: "/product/mark", name: "商品评论", component: "./ProductManage" },
+      { path: "/product/category", name: "商品分类", component: "./ProductCategoryManage" },
+      { path: "/product/comment", name: "商品评论", component: "./ProductCommentManage" },
     ]
   },
   {
@@ -26,6 +26,12 @@ export default [
     name: '订单管理',
     icon: "ProductOutlined",
     component: './OrderManage'
+  },
+  {
+    path: '/attachment',
+    name: '附件管理',
+    icon: "file",
+    component: './AttachmentManage'
   },
   {
     path: '/users',

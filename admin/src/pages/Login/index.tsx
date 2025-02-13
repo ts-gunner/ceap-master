@@ -90,26 +90,23 @@ const Login: React.FC = () => {
   const { styles } = useStyles();
 
   const handleSubmit = async (values: API.AdminLoginRequest) => {
-    try {
-      const response = await adminLogin({
-        username: values.username,
-        password: encryptByMd5(values.password)
-      });
-      sessionStorage.setItem("token", response.data || "");
-      message.success("登录成功!")
-      let adminResp = await getAdminInfo();
-      await setInitialState((initState?: InitialState) => {
-        return {
-          ...initState,
-          loginUser: adminResp.data
-        }
-      })
-      await refresh()
-      history.push("/")
-      return
-    } catch (error) {
-      message.error('登录失败:' + error);
-    }
+    const response = await adminLogin({
+      username: values.username,
+      password: encryptByMd5(values.password)
+    });
+    sessionStorage.setItem("token", response.data || "");
+    message.success("登录成功!")
+    let adminResp = await getAdminInfo();
+    await setInitialState((initState?: InitialState) => {
+      return {
+        ...initState,
+        loginUser: adminResp.data
+      }
+    })
+    await refresh()
+    history.push("/")
+    return
+
 
   };
   const { status, type: loginType } = userLoginState;

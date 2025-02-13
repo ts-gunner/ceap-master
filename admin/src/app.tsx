@@ -9,9 +9,12 @@ import defaultSettings from '../config/defaultSettings';
 import { requestConfig } from './requestConfig';
 import { getAdminInfo } from './services/ceap/adminLoginController';
 import { commonConstants } from './constants/common';
-import { message } from 'antd';
+import { Provider } from "react-redux";
+import { store } from "@/store"
+import { getPersistor } from "@rematch/persist";
+import { PersistGate } from "redux-persist/lib/integration/react";
 
-
+const persistor = getPersistor();
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
@@ -91,7 +94,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     childrenRender: (children) => {
       // if (initialState?.loading) return <PageLoading />;
       return (
-        <>
+        <PersistGate persistor={persistor}>
+      <Provider store={store}>
           {children}
           {isDev && (
             <SettingDrawer
@@ -106,7 +110,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
               }}
             />
           )}
-        </>
+       </Provider>
+       </PersistGate>
       );
     },
     ...initialState?.settings,

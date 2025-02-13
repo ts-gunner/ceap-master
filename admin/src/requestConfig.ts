@@ -26,7 +26,8 @@ interface ResponseStructure {
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const requestConfig: RequestConfig = {
-  baseURL: "http://127.0.0.1:18080/ceap/admin",  // API网关，生产环境
+  // baseURL: "http://192.168.5.100:18080/ceap/admin",  
+  baseURL: "http://127.0.0.1:18080/ceap/admin",  
   // 错误处理： umi@3 的错误处理方案。
   errorConfig: {
     // 错误抛出
