@@ -1,4 +1,9 @@
 declare namespace API {
+  type AddCategoryRequest = {
+    categoryName: string;
+    categoryType: number;
+  };
+
   type addRoleParams = {
     roleName: string;
   };
@@ -13,6 +18,18 @@ declare namespace API {
   type AdminLoginRequest = {
     username: string;
     password: string;
+  };
+
+  type BaseResponseListSystemAttachment = {
+    code?: number;
+    msg?: string;
+    data?: SystemAttachment[];
+  };
+
+  type BaseResponseListSystemCategory = {
+    code?: number;
+    msg?: string;
+    data?: SystemCategory[];
   };
 
   type BaseResponseListSystemPermission = {
@@ -75,6 +92,11 @@ declare namespace API {
     data?: SystemAdminVo;
   };
 
+  type getCategoryListParams = {
+    categoryType: number;
+    categoryName: string;
+  };
+
   type getPermissionsParams = {
     roleId: number;
   };
@@ -115,6 +137,10 @@ declare namespace API {
     sortOrder?: string;
     account?: string;
     status?: boolean;
+  };
+
+  type GetSystemAttachmentRequest = {
+    categoryIds?: string;
   };
 
   type GetSystemPermissionPageRequest = {
@@ -316,6 +342,28 @@ declare namespace API {
     permissionsList?: string[];
   };
 
+  type SystemAttachment = {
+    id?: number;
+    attName?: string;
+    attDir?: string;
+    sattDir?: string;
+    attSize?: string;
+    attType?: string;
+    userId?: number;
+    uploader?: string;
+    createTime?: string;
+    updateTime?: string;
+  };
+
+  type SystemCategory = {
+    id?: number;
+    pid?: number;
+    name?: string;
+    type?: number;
+    createTime?: string;
+    updateTime?: string;
+  };
+
   type SystemPermission = {
     id?: number;
     pid?: number;
@@ -346,5 +394,9 @@ declare namespace API {
   type UpdateSystemRoleRequest = {
     roleId?: number;
     roleName?: string;
+  };
+
+  type uploadAttachmentFileParams = {
+    categoryIds: string;
   };
 }

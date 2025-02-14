@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@TableName("cp_category")
+@TableName("cp_system_category")
 @ApiModel("分类管理表")
 public class SystemCategory implements Serializable {
 

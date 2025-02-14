@@ -1,6 +1,7 @@
 package com.forty.ceap.model.common;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -17,9 +18,9 @@ import java.util.Date;
 @ApiModel("附件管理表")
 public class SystemAttachment implements Serializable {
 
-    @TableId
+    @TableId(type = IdType.AUTO)
     @ApiModelProperty("附件ID")
-    private String id;
+    private Integer id;
 
     @TableField("att_name")
     @ApiModelProperty("附件名称")
@@ -41,9 +42,13 @@ public class SystemAttachment implements Serializable {
     @ApiModelProperty("附件类型")
     private String attType;
 
-    @TableField("category_id")
-    @ApiModelProperty("分类ID")
-    private Integer categoryId;
+    @TableField("user_id")
+    @ApiModelProperty("上传者ID")
+    private Integer userId;
+
+    @TableField("uploader")
+    @ApiModelProperty("上传者")
+    private String uploader;
 
     @TableField("create_time")
     @ApiModelProperty("创建时间")

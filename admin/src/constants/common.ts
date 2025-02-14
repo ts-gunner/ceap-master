@@ -7,3 +7,44 @@ export const commonConstants = {
     ACCESS_COUNT_ICON: "https://pic1.imgdb.cn/item/67a0d8fdd0e0a243d4f9dac2.png",
 };
 
+export const attachmentConstants = {
+    ATTACHMENT_TAGS: [
+        {
+            key: 'all',
+            label: '全部',
+            allowExtension: ["*"]
+        },
+        {
+            key: 'image',
+            label: '图片',
+            allowExtension: ["png", "jpg", "jpeg", "webp"]
+        },
+        {
+            key: 'video',
+            label: '视频',
+            allowExtension: ["mp4"]
+        },
+        {
+            key: 'ppt',
+            label: 'PPT',
+            allowExtension: ["ppt"]
+        },
+        {
+            key: 'document',
+            label: '文档',
+            allowExtension: ["pdf", "txt", "md"]
+        },
+        {
+            key: 'audio',
+            label: '音频',
+            allowExtension: ["mp3"]
+        },
+      
+    ],
+    DEFAULT_CATEGORY_TAGS: [
+        {
+            key: 'all',
+            label: '全部'
+        },
+    ]
+}

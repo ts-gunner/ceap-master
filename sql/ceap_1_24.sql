@@ -112,6 +112,17 @@ INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (20, null
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (21, 20, '获取商品信息', 'admin:product:get');
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (22, 20, '更新商品内容', 'admin:product:update');
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (23, 20, '添加商品信息', 'admin:product:add');
+
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (24, null, '类别服务', 'admin:category_service');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (25, 24, '获取类别信息', 'admin:category:search');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (26, 24, '添加类别', 'admin:category:add');
+
+
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (27, null, '附件服务', 'admin:attachment_service');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (28, 27, '获取附件信息', 'admin:attachment:search');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (29, 27, '上传附件', 'admin:attachment:upload');
+
+
 -- --------------------------------
 -- 后台管理平台的角色权限映射表
 -- --------------------------------
@@ -146,6 +157,12 @@ INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 20);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 21);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 22);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 23);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 24);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 25);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 26);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 27);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 28);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 29);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (2, 2);
 
 
@@ -287,13 +304,14 @@ CREATE TABLE `cp_store_product`  (
 
 DROP TABLE IF EXISTS `cp_system_attachment`;
 CREATE TABLE `cp_system_attachment`  (
-  `id` VARCHAR(100) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `att_name` varchar(100) NOT NULL DEFAULT '' COMMENT '附件名称',
   `att_dir` varchar(1000) NOT NULL DEFAULT '' COMMENT '附件路径',
   `satt_dir` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '压缩图片路径',
   `att_size` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '附件大小',
   `att_type` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '附件类型',
-  `category_id` int(10) NOT NULL DEFAULT 0 COMMENT '分类ID',
+  `user_id` int(11) NOT NULL DEFAULT 0 COMMENT '上传者ID',
+  `uploader` varchar(100) NOT NULL DEFAULT '' COMMENT '上传者',
   `create_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -303,12 +321,23 @@ CREATE TABLE `cp_system_attachment`  (
 DROP TABLE IF EXISTS `cp_system_category`;
 CREATE TABLE `cp_system_category`  (
     `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `pid` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '父级ID',
+    `pid` int(11) UNSIGNED NULL COMMENT '父级ID',
     `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '分类名称',
     `type` smallint(2) NULL DEFAULT 1 COMMENT '类型，1 产品分类，2 附件分类 3 设置分类',
     `create_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB  COMMENT = '分类管理表';
+
+
+DROP TABLE IF EXISTS `cp_attachment_category`;
+CREATE TABLE `cp_attachment_category`  (
+    `aid` int(11) NOT NULL COMMENT '附件ID',
+    `cid` int(11) NOT NULL COMMENT '类型（标签）ID',
+    PRIMARY KEY (`aid`, `cid`) USING BTREE
+) ENGINE = InnoDB  COMMENT = '附件类型映射表';
+
+
+
 
 SET FOREIGN_KEY_CHECKS = 1;

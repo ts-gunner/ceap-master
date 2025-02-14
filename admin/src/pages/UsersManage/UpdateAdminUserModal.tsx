@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ModalForm, ProFormText, ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { getRoleList } from '@/services/ceap/systemRoleController';
-import { message } from 'antd';
 
 type ModalProps = {
     modalOpen: boolean,

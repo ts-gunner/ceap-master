@@ -12,4 +12,6 @@ import org.springframework.context.annotation.Configuration;
 public class CeapCoreConfig {
 
     private String appSecret;
+
+    private TencentApiConfig tencent;
 }

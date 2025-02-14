@@ -6,11 +6,15 @@ spring:
     #  格式化返回时间 yyyy-MM-dd HH:mm:ss
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
 
 server:
   servlet:
     context-path: "/ceap/admin"
+
 
 mybatis-plus:
   configuration:

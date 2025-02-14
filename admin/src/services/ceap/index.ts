@@ -6,6 +6,8 @@ import * as adminLoginController from './adminLoginController';
 import * as storeOrderController from './storeOrderController';
 import * as storeProductController from './storeProductController';
 import * as systemAdminController from './systemAdminController';
+import * as systemAttachmentController from './systemAttachmentController';
+import * as systemCategoryController from './systemCategoryController';
 import * as systemPermissionController from './systemPermissionController';
 import * as systemRoleController from './systemRoleController';
 export default {
@@ -13,6 +15,8 @@ export default {
   storeProductController,
   systemPermissionController,
   storeOrderController,
+  systemCategoryController,
   adminLoginController,
+  systemAttachmentController,
   systemAdminController,
 };

@@ -1,0 +1,49 @@
+.btn-animate {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    border: none;
+    border-radius: 5px;
+    background: #479aed;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .btn-animate__tear-up-out {
+    overflow: hidden;
+    z-index: 1;
+    background-color: #ed8209;
+  
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      z-index: -1;
+      width: 51%;
+      height: 100%;
+      transform: translate3d(0, 0, 0);
+      transition: .35s ease-out;
+      background-color: #479aed;
+    }
+  
+    &::before {
+      left: 0;
+    }
+  
+    &::after {
+      right: 0;
+    }
+  
+    &:hover {
+      &::before {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0) rotate(-45deg);
+      }
+  
+      &::after {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0) rotate(-45deg);
+      }
+    }
+  }
