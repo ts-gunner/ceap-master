@@ -4,6 +4,19 @@ declare namespace API {
     categoryType: number;
   };
 
+  type AddProductRequest = {
+    productImage?: string;
+    storeName?: string;
+    description?: string;
+    keyword?: string;
+    price?: number;
+    otPrice?: number;
+    unitName?: string;
+    stock?: number;
+    isShow?: boolean;
+    isPostage?: boolean;
+  };
+
   type addRoleParams = {
     roleName: string;
   };
@@ -44,6 +57,12 @@ declare namespace API {
     data?: SystemRole[];
   };
 
+  type BaseResponseMapIntegerInteger = {
+    code?: number;
+    msg?: string;
+    data?: Record<string, any>;
+  };
+
   type BaseResponseObject = {
     code?: number;
     msg?: string;
@@ -56,10 +75,10 @@ declare namespace API {
     data?: PageStoreOrder;
   };
 
-  type BaseResponsePageStoreProduct = {
+  type BaseResponsePageStoreProductVo = {
     code?: number;
     msg?: string;
-    data?: PageStoreProduct;
+    data?: PageStoreProductVo;
   };
 
   type BaseResponsePageSystemAdminPageVo = {
@@ -152,6 +171,10 @@ declare namespace API {
     permissionCode?: string;
   };
 
+  type offsellProductParams = {
+    productId: number;
+  };
+
   type OrderItem = {
     column?: string;
     asc?: boolean;
@@ -171,14 +194,14 @@ declare namespace API {
     pages?: number;
   };
 
-  type PageStoreProduct = {
-    records?: StoreProduct[];
+  type PageStoreProductVo = {
+    records?: StoreProductVo[];
     total?: number;
     size?: number;
     current?: number;
     orders?: OrderItem[];
-    optimizeCountSql?: PageStoreProduct;
-    searchCount?: PageStoreProduct;
+    optimizeCountSql?: PageStoreProductVo;
+    searchCount?: PageStoreProductVo;
     optimizeJoinOfCountSql?: boolean;
     maxLimit?: number;
     countId?: string;
@@ -225,6 +248,11 @@ declare namespace API {
     maxLimit?: number;
     countId?: string;
     pages?: number;
+  };
+
+  type recycleProductParams = {
+    productId: number;
+    isRecycle: boolean;
   };
 
   type ResetAdminPasswordRequest = {
@@ -278,36 +306,17 @@ declare namespace API {
     orderType?: number;
   };
 
-  type StoreProduct = {
+  type StoreProductVo = {
     id?: number;
-    merId?: number;
     image?: string;
-    sliderImage?: string;
     storeName?: string;
-    description?: string;
-    keyword?: string;
-    cateId?: string;
     price?: number;
-    vipPrice?: number;
     otPrice?: number;
-    postage?: number;
-    unitName?: string;
-    sort?: number;
     sales?: number;
     stock?: number;
-    isShow?: boolean;
-    isHot?: boolean;
-    isBenefit?: boolean;
-    isBest?: boolean;
-    isNew?: boolean;
     createTime?: string;
-    updateTime?: string;
-    isPostage?: boolean;
-    isDelete?: boolean;
-    browse?: number;
-    tempId?: number;
-    specType?: boolean;
-    flatPattern?: string;
+    isShow?: boolean;
+    isRecycle?: boolean;
   };
 
   type SystemAdminPageVo = {
@@ -398,5 +407,9 @@ declare namespace API {
 
   type uploadAttachmentFileParams = {
     categoryIds: string;
+  };
+
+  type upsellProductParams = {
+    productId: number;
   };
 }

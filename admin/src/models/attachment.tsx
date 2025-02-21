@@ -9,6 +9,7 @@ export type CategoryListType = {
 }
 
 export type AttachmentListType = {
+    key: number,
     filename: string,
     attDir: string,
     attSize: string,
@@ -16,13 +17,17 @@ export type AttachmentListType = {
     uploader: string,
 }
 type AttachmentType = {
-    selectedTags: string[]
+    selectedTags: string[]  // 选中的图片类型标签
     uploadList: UploadFile[]
-    selectedCategory: string[]
+    selectedCategory: string[]  // 选中的标签
+    selectedFileIds: number[]
     categoryList: CategoryListType[]
     uploadFileModalOpen: boolean
+    uploadLoading: boolean
     attachmentList: AttachmentListType[]
     attachmentLoading: boolean
+    selectedExtensionAllowList: string[]  // 选择图片允许的文件格式
+    selectedLimit: number // 选择图片的上限
 }
 
 const initState: AttachmentType = {
@@ -31,8 +36,12 @@ const initState: AttachmentType = {
     selectedCategory: [],
     categoryList: [],
     uploadFileModalOpen: false,
+    uploadLoading: false,
     attachmentList: [],
-    attachmentLoading: false
+    attachmentLoading: false,
+    selectedFileIds: [],
+    selectedExtensionAllowList: [],
+    selectedLimit: 10
 }
 
 export const attachModel = createModel<RootModel>()({
@@ -119,11 +128,50 @@ export const attachModel = createModel<RootModel>()({
                 attachmentList: payload
             }
         },
-
+        setSelectedFileIds: (state: AttachmentType, payload: number[]) => {
+            return {
+                ...state,
+                selectedFileIds: payload
+            }
+        },
+        clearSelectedFile: (state:AttachmentType) => {
+            return {
+                ...state,
+                selectedFileIds: []
+            }
+        },
+        // 选择图片允许的文件格式
+        setSelectedExtensionAllowList: (state:AttachmentType, payload: string[]) => {
+            return {
+                ...state,
+                selectedExtensionAllowList: []
+            }
+        },
+        setSelectedLimit: (state:AttachmentType, payload: number) => {
+            return {
+                ...state,
+                selectedLimit: payload
+            }
+        },
+        initSelectedLimit: (state:AttachmentType) => {
+            return {
+                ...state,
+                selectedLimit: initState.selectedLimit
+            }
+        },
+        initialize: () => {
+            return initState
+        },
+        setUploadLoading: (state:AttachmentType, payload: boolean) => {
+            return {
+                ...state,
+                uploadLoading: payload
+            }
+        },
     },
     effects: (dispatch) => ({
         uploadAttachment: async (_, state) => {
-
+            dispatch.attachModel.setUploadLoading(true)
             for (let file of state.attachModel.uploadList){
                 const resp = await uploadAttachmentFile({
                     categoryIds: state.attachModel.selectedCategory.join(",")
@@ -134,6 +182,8 @@ export const attachModel = createModel<RootModel>()({
                 }
             }
             message.success("附件上传成功！！")
+            dispatch.attachModel.setUploadLoading(false)
+
             dispatch.attachModel.getAttachmentList(null)
             dispatch.attachModel.handleUploadFileModalOpen(false)
 
@@ -151,6 +201,7 @@ export const attachModel = createModel<RootModel>()({
             })
             const nextAttachmentList: AttachmentListType[] = resp.data?.map((item) => {
                 return {
+                    key: item.id || -1,
                     filename: item.attName || "",
                     attDir: item.attDir || "",
                     attSize: item.attSize || "",
@@ -165,6 +216,24 @@ export const attachModel = createModel<RootModel>()({
        handleCategoryChange: async (payload: {tag: string, checked: boolean}) => {
             dispatch.attachModel.setSelectedCategory(payload)
             dispatch.attachModel.getAttachmentList(null)
+       },
+       handleSelectFile: (payload: number, state) => {
+            if (state.attachModel.selectedFileIds.includes(payload)) {
+                // 已经选中，且再点击，则取消
+                dispatch.attachModel.setSelectedFileIds(
+                    state.attachModel.selectedFileIds.filter(it => it != payload)
+                )
+            }else {
+
+                const nextFileIds = [
+                    ...state.attachModel.selectedFileIds, payload
+                ]
+                if (nextFileIds.length > state.attachModel.selectedLimit){
+                    message.error("最多只能选择"+ state.attachModel.selectedLimit + "个附件")
+                    return
+                }
+                dispatch.attachModel.setSelectedFileIds(nextFileIds)
+            }
        }
     })
 })

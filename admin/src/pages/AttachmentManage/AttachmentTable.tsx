@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Flex, Tag, Typography, Input, Card, Image, Upload, Button, Select, Spin } from 'antd';
+import { Flex, Tag, Typography, Input, Card, Image, Upload, Button, Select, Spin, Tooltip } from 'antd';
 import { attachmentConstants } from '../../constants/common';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dispatch, RootState } from '@/store';
@@ -15,8 +15,10 @@ export default function AttachmentTable() {
     const selectedTags = useSelector((state: RootState) => state.attachModel.selectedTags)
     const selectedCategory = useSelector((state: RootState) => state.attachModel.selectedCategory)
     const categoryList = useSelector((state: RootState) => state.attachModel.categoryList)
+    const selectedFileIds = useSelector((state: RootState) => state.attachModel.selectedFileIds)
     const attachmentList = useSelector((state: RootState) => state.attachModel.attachmentList)
     const attachmentLoading = useSelector((state: RootState) => state.attachModel.attachmentLoading)
+    const uploadLoading = useSelector((state: RootState) => state.attachModel.uploadLoading)
     const uploadList = useSelector((state: RootState) => state.attachModel.uploadList)
     const handleChange = (tag: string, checked: boolean) => {
         dispatch.attachModel.setSelectedTags({ tag, checked })
@@ -75,14 +77,14 @@ export default function AttachmentTable() {
                         attachmentList.filter((item) => {
                             let filenameArr = item.filename.split(".")
                             let fileExtension = filenameArr[filenameArr.length - 1].toLowerCase()
-                            if (selectedTags.includes("all")){
+                            if (selectedTags.includes("all")) {
                                 return true
                             }
 
                             const tagObjects = attachmentConstants.ATTACHMENT_TAGS.filter(it => selectedTags.includes(it.key))
                             let filterResult = false;
-                            for (let tagObject of tagObjects){
-                                if (tagObject.allowExtension.includes(fileExtension)){
+                            for (let tagObject of tagObjects) {
+                                if (tagObject.allowExtension.includes(fileExtension)) {
                                     filterResult = true
                                 }
                             }
@@ -90,7 +92,12 @@ export default function AttachmentTable() {
                         }).map((item) => {
                             return (
                                 <Card
+                                    key={item.key}
                                     hoverable
+                                    style={{
+                                        backgroundColor: selectedFileIds.includes(item.key) ? "#CCFF99" : "white"
+                                    }}
+                                    onClick={() => dispatch.attachModel.handleSelectFile(item.key)}
                                 >
                                     <div style={{
                                         display: "flex",
@@ -112,9 +119,14 @@ export default function AttachmentTable() {
                                                 />
                                             }
                                         />
-                                    <div>
-                                        <Typography.Text>{item.filename}</Typography.Text>
-                                    </div>
+                                        <div>
+                                            <Tooltip title={item.filename}>
+                                                <Typography.Text style={{ width: 100 }}
+                                                    ellipsis={{ suffix: item.filename.slice(-5).trim() }}
+                                                >{item.filename}</Typography.Text>
+                                            </Tooltip>
+
+                                        </div>
                                     </div>
                                 </Card>
                             )
@@ -126,6 +138,7 @@ export default function AttachmentTable() {
 
 
             <ModalForm
+                loading={uploadLoading}
                 title='上传附件'
                 width="30%"
                 open={uploadFileModalOpen}

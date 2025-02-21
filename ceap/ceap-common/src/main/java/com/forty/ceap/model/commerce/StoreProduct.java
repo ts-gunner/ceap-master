@@ -21,7 +21,7 @@ public class StoreProduct implements Serializable {
 
     @TableField("mer_id")
     @ApiModelProperty("商户ID")
-    private Integer merId;
+    private String merId;
 
     @TableField("image")
     @ApiModelProperty("商品图片")
@@ -98,6 +98,10 @@ public class StoreProduct implements Serializable {
     @TableField("is_new")
     @ApiModelProperty("是否新品")
     private Boolean isNew;
+
+    @TableField("is_recycle")
+    @ApiModelProperty("是否回收")
+    private Boolean isRecycle;
 
     @TableField("create_time")
     @ApiModelProperty("添加时间")

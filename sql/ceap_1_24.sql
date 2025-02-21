@@ -112,15 +112,17 @@ INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (20, null
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (21, 20, '获取商品信息', 'admin:product:get');
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (22, 20, '更新商品内容', 'admin:product:update');
 INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (23, 20, '添加商品信息', 'admin:product:add');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (24, 20, '上架商品', 'admin:product:up');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (25, 20, '下架商品', 'admin:product:down');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (26, 20, '更新商品信息', 'admin:product:update');
 
-INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (24, null, '类别服务', 'admin:category_service');
-INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (25, 24, '获取类别信息', 'admin:category:search');
-INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (26, 24, '添加类别', 'admin:category:add');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (27, null, '类别服务', 'admin:category_service');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (28, 27, '获取类别信息', 'admin:category:search');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (29, 27, '添加类别', 'admin:category:add');
 
-
-INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (27, null, '附件服务', 'admin:attachment_service');
-INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (28, 27, '获取附件信息', 'admin:attachment:search');
-INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (29, 27, '上传附件', 'admin:attachment:upload');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (30, null, '附件服务', 'admin:attachment_service');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (31, 30, '获取附件信息', 'admin:attachment:search');
+INSERT INTO `cp_system_permission`(`id`, `pid`, `name`, `code`) VALUES (32, 30, '上传附件', 'admin:attachment:upload');
 
 
 -- --------------------------------
@@ -163,6 +165,9 @@ INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 26);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 27);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 28);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 29);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 30);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 31);
+INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (1, 32);
 INSERT INTO `cp_system_role_permission`(`rid`, `pid`) VALUES (2, 2);
 
 
@@ -265,16 +270,16 @@ CREATE TABLE `cp_order_operation_record`  (
 DROP TABLE IF EXISTS `cp_store_product`;
 CREATE TABLE `cp_store_product`  (
   `id` mediumint(11) NOT NULL AUTO_INCREMENT COMMENT '商品id',
-  `mer_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商户Id(0为总后台管理员创建,不为0的时候是商户后台创建)',
-  `image` varchar(256)  NOT NULL COMMENT '商品图片',
+  `mer_id` varchar(100) NOT NULL COMMENT '商户Id(0开头为总后台管理员创建,1开头是商户后台创建)',
+  `image` varchar(1000)  NOT NULL COMMENT '商品图片',
   `slider_image` varchar(2000) NOT NULL COMMENT '轮播图',
   `store_name` varchar(128) NOT NULL COMMENT '商品名称',
   `description` varchar(256) NOT NULL COMMENT '商品简介',
   `keyword` varchar(256) NOT NULL COMMENT '关键字',
-  `cate_id` varchar(64) NOT NULL COMMENT '分类id',
+  `cate_id` varchar(64) NOT NULL DEFAULT '' COMMENT '分类id',
   `price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '商品价格',
   `vip_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '会员价格',
-  `ot_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '市场价',
+  `ot_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '成本价',
   `postage` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '邮费',
   `unit_name` varchar(32) NOT NULL COMMENT '单位名',
   `sort` smallint(11) NOT NULL DEFAULT 0 COMMENT '排序',

@@ -19,6 +19,7 @@ export default [
       { path: "/product/manage", name: "商品管理", component: "./ProductManage" },
       { path: "/product/category", name: "商品分类", component: "./ProductCategoryManage" },
       { path: "/product/comment", name: "商品评论", component: "./ProductCommentManage" },
+      { path: "/product/createProduct", name: "创建商品", component: "./ProductManage/CreateProduct", hideInMenu: true },
     ]
   },
   {
