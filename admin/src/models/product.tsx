@@ -10,7 +10,8 @@ type StoreProductType = {
         1: number,
         2: number,
         3: number
-    }
+    },
+    updateModalOpen: boolean
 }
 
 const initState: StoreProductType = {
@@ -19,7 +20,8 @@ const initState: StoreProductType = {
         1: 0,
         2: 0,
         3: 0
-    }
+    },
+    updateModalOpen: false
 }
 // 商品模型
 export const productModel = createModel<RootModel>()({
@@ -34,6 +36,12 @@ export const productModel = createModel<RootModel>()({
             return {
                 ...state,
                 tabBadge: payload
+            }
+        },
+        handleUpdateModalOpen: (state: StoreProductType, payload:boolean) => {
+            return {
+                ...state,
+                updateModalOpen: payload
             }
         }
 

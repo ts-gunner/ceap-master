@@ -7,6 +7,7 @@ import { getAdminProducts, offsellProduct, recycleProduct, upsellProduct } from 
 import { history } from '@umijs/max';
 import { Dispatch, RootState } from '@/store';
 import { useDispatch, useSelector } from 'react-redux';
+import UpdateProductModal from './UpdateProductModal';
 
 type StoreProductType = {
   // 0: 出售中商品， 1： 仓库商品 2：售罄商品 3：商品回收站
@@ -16,6 +17,8 @@ type StoreProductType = {
 export default function ProductTable({ productType }: StoreProductType) {
   const actionRef = useRef<ActionType>();
   const dispatch = useDispatch<Dispatch>();
+  const [updateModalOpen, handleUpdateModalOpen] = useState(false)
+  const [currentRecord, setCurrentRecord] = useState<API.StoreProductVo>({})
   const columns: ProColumns<API.StoreProductVo>[] = [
     {
       key: "id",
@@ -43,14 +46,6 @@ export default function ProductTable({ productType }: StoreProductType) {
       align: "center",
     },
     {
-      key: "stock",
-      title: '库存',
-      dataIndex: 'stock',
-      hideInSearch: true,
-      width: 120,
-      align: "center",
-    },
-    {
       key: "price",
       title: '售价',
       dataIndex: 'price',
@@ -67,6 +62,16 @@ export default function ProductTable({ productType }: StoreProductType) {
       align: "center",
     },
     {
+      key: "stock",
+      title: '库存',
+      dataIndex: 'stock',
+      hideInSearch: true,
+      width: 120,
+      align: "center",
+    },
+   
+   
+    {
       key: "sales",
       title: '销量',
       dataIndex: 'sales',
@@ -76,13 +81,13 @@ export default function ProductTable({ productType }: StoreProductType) {
     },
     {
       key: "isShow",
-      title: '是否上架',
+      title: '状态',
       dataIndex: 'isShow',
       hideInSearch: true,
       width: 120,
       align: "center",
       render: (text, record) => {
-        return <Switch defaultChecked={text === true}
+        return <Switch defaultChecked={text === true} checkedChildren="上架" unCheckedChildren="下架"
           onChange={async (checked: boolean) => {
             let resp;
             if (productType === 0) {
@@ -123,20 +128,22 @@ export default function ProductTable({ productType }: StoreProductType) {
         return <div style={{
           display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem"
         }}>
-          <a
+          {!record.isRecycle && (<a
             onClick={() => {
-
+              console.log("@@#!", record)
+                setCurrentRecord(record)
+                handleUpdateModalOpen(true)
             }}
           >
             修改
-          </a>
-          <a
+          </a>)}
+          {!record.isRecycle &&  (<a
             onClick={() => {
 
             }}
           >
             查看
-          </a>
+          </a>)}
           {
             record.isRecycle ? <a
               onClick={async () => {
@@ -216,7 +223,15 @@ export default function ProductTable({ productType }: StoreProductType) {
         }
       />
 
-
+        <UpdateProductModal 
+          modalOpen={updateModalOpen}
+          handleModalOpen={handleUpdateModalOpen}
+          onSubmit={async (values:any) => {
+              handleUpdateModalOpen(false)
+          }}
+          values={currentRecord}
+        
+        />
 
     </div>
   )

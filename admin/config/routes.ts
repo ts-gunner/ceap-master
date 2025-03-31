@@ -29,6 +29,18 @@ export default [
     component: './OrderManage'
   },
   {
+    path: '/health',
+    name: '用户健康档案',
+    icon: "ProductOutlined",
+    component: './HealthFilesManage'
+  },
+  {
+    path: '/serviceDispatch',
+    name: '服务派单',
+    icon: "ProductOutlined",
+    component: './ServiceDispatch'
+  },
+  {
     path: '/attachment',
     name: '附件管理',
     icon: "file",

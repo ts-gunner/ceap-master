@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { PageContainer } from '@ant-design/pro-components'
 import { Badge } from 'antd'
+import ProductTable from './ProductTable'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, Dispatch } from '@/store'
 import OnSaleProduct from './OnSaleProduct'
 import OnStoreProduct from './OnStoreProduct'
 import SellOutProduct from './SellOutProduct'
 import RecycleProduct from './RecycleProduct'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState, Dispatch } from '@/store'
+
+
 export default function ProductManage() {
   const tabBadge = useSelector((state:RootState) => state.productModel.tabBadge)
   const dispatch = useDispatch<Dispatch>()

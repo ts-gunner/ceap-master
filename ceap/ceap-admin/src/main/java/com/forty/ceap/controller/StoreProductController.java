@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.forty.ceap.model.commerce.StoreProduct;
 import com.forty.ceap.request.AddProductRequest;
 import com.forty.ceap.request.GetStoreProductRequest;
+import com.forty.ceap.request.UpdateProductRequest;
 import com.forty.ceap.response.BaseResponse;
 import com.forty.ceap.service.StoreProductService;
 import com.forty.ceap.vo.StoreProductVo;
@@ -77,6 +78,13 @@ public class StoreProductController {
     @Operation(description = "商品移入移出回收站")
     public BaseResponse<Object> recycleProduct(@RequestParam Integer productId, @RequestParam Boolean isRecycle){
         storeProductService.recycleProduct(productId, isRecycle);
+        return new BaseResponse<>();
+    }
+
+    @PreAuthorize("hasAuthority('admin:product:update')")
+    @PostMapping("/update_product")
+    @Operation(description = "更新商品信息")
+    public BaseResponse<Object> updateProductInfo(@RequestBody UpdateProductRequest request){
         return new BaseResponse<>();
     }
 }
