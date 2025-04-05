@@ -4,6 +4,9 @@ SET
 SET
     FOREIGN_KEY_CHECKS = 0;
 
+
+-- 管理端表结构
+
 -- --------------------------------
 -- 后台管理平台的用户表
 -- --------------------------------
@@ -343,6 +346,30 @@ CREATE TABLE `cp_attachment_category`  (
 ) ENGINE = InnoDB  COMMENT = '附件类型映射表';
 
 
+-- 用户端表结构
 
+-- --------------------------------
+-- 后台管理平台的用户表
+-- --------------------------------
+DROP TABLE IF EXISTS `cp_micro_user`;
+
+create table if not exists `cp_micro_user` (
+    `uid` smallint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户表ID',
+    `nickname` varchar(32) NOT NULL COMMENT '昵称',
+    `email` varchar(255) null comment '邮箱',
+    `roles` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '后台角色ids,多个以逗号相隔',
+    `last_ip` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '后台管理员最后一次登录ip',
+    `level` tinyint(3) UNSIGNED NOT NULL DEFAULT 1 COMMENT '后台管理员级别',
+    `login_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '登录次数',
+    `phone` varchar(15) null comment '手机号码',
+    `status` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '后台管理员状态 1有效0无效',
+    `is_sms` tinyint(1) UNSIGNED NULL DEFAULT 0 COMMENT '是否接收短信',
+    `is_delete` tinyint default 0 not null comment '是否删除',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '后台管理员添加时间',
+    `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '后台管理员最后一次登录时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `account`(`account`) USING BTREE,
+    INDEX `status`(`status`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 default charset = utf8mb4 comment '后台管理员表';
 
 SET FOREIGN_KEY_CHECKS = 1;

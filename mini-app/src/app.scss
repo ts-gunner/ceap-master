@@ -1,0 +1,23 @@
+@import "~taro-ui/dist/style/components/tag.scss";
+@import "~taro-ui/dist/style/components/card.scss";
+@import "~taro-ui/dist/style/components/load-more.scss";
+@import "~taro-ui/dist/style/components/activity-indicator.scss";
+@import "~taro-ui/dist/style/components/button.scss";
+@import "~taro-ui/dist/style/components/textarea.scss";
+@import "~taro-ui/dist/style/components/list.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
+@import "~taro-ui/dist/style/components/toast.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+    --secondColor: #FFF5F2;
+    --primaryColor: #FF7E5F;  // 主色调
+    --secondColor: #FFF5F2;   // 辅助色调
+    --dividerColor: #FFD3C9;  // 分割线颜色
+    --strongColor: #6ECCAF;  // 强调色
+    --textColor: #5E2B2B;  // 字体颜色
+}

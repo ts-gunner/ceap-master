@@ -17,6 +17,7 @@
         <module>ceap-gateway</module>
         <module>ceap-common</module>
         <module>ceap-admin</module>
+        <module>ceap-app</module>
     </modules>
     <developers>
         <developer>
